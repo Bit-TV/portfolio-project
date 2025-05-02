@@ -3,8 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio Website - Project Details</title>
+  <title>Tic Tac Toe - Project Details</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    #main_cnt {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: 300px;
+      width: 300px;
+      margin: 2rem auto;
+      gap: 5px;
+    }
+
+    .child {
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      background-color: #fff5ff;
+      cursor: pointer;
+    }
+
+    .child:hover {
+      background-color: #ffe1ff;
+    }
+
+    .project-desc {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,30 +51,23 @@
   </header>
 
   <main class="section">
-    <h1>Portfolio Website</h1>
+    <h1 style="text-align:center;">Tic Tac Toe Project</h1>
 
-    <p>This portfolio was built to showcase my web development skills and artistic interests. It includes sections for my background, featured projects, skills, and contact information.</p>
+    <div class="project-desc">
+      <p>This interactive Tic Tac Toe game uses JavaScript to track player turns and check for winners. It highlights grid logic and DOM manipulation.</p>
+    </div>
 
-    <h2>Design Goals</h2>
-    <ul>
-      <li>Clean, playful, and responsive layout</li>
-      <li>Personal branding through fonts, color, and content</li>
-      <li>Interactive features like smooth scrolling and a contact form</li>
-    </ul>
-
-    <h2>Technologies Used</h2>
-    <ul>
-      <li>HTML5 & CSS3</li>
-      <li>JavaScript</li>
-      <li>Google Fonts</li>
-      <li>GitHub Pages (deployment)</li>
-    </ul>
-
-    <h2>Challenges Faced</h2>
-    <p>Making the layout responsive across all devices required testing and careful use of Flexbox. I also had to troubleshoot GitHub Pages pathing issues to ensure everything rendered properly.</p>
-
-    <h2>What I Learned</h2>
-    <p>This project taught me how to design a portfolio from scratch, structure a multi-page site, write cleaner semantic HTML, and publish work live online.</p>
+    <div id="main_cnt">
+      <div class="child" id="child_1" onclick="handle_click(event)"></div>
+      <div class="child" id="child_2" onclick="handle_click(event)"></div>
+      <div class="child" id="child_3" onclick="handle_click(event)"></div>
+      <div class="child" id="child_4" onclick="handle_click(event)"></div>
+      <div class="child" id="child_5" onclick="handle_click(event)"></div>
+      <div class="child" id="child_6" onclick="handle_click(event)"></div>
+      <div class="child" id="child_7" onclick="handle_click(event)"></div>
+      <div class="child" id="child_8" onclick="handle_click(event)"></div>
+      <div class="child" id="child_9" onclick="handle_click(event)"></div>
+    </div>
 
     <a href="index.html#projects" class="button" style="display: block; text-align: center; margin-top: 2rem;">Back to Projects</a>
   </main>
@@ -51,5 +75,53 @@
   <footer>
     <p>&copy; 2025 Briyana Verdugo. All rights reserved.</p>
   </footer>
+
+  <script>
+    let value = ["", "", "", "", "", "", "", "", ""];
+    let player_a = true;
+
+    function handle_click(e) {
+      let curr_ele = e.target;
+      let curr_id = e.target.id;
+
+      if (curr_ele.innerText === "") {
+        curr_ele.innerText = player_a ? "X" : "O";
+        value[curr_id[6] - 1] = player_a ? "X" : "O";
+
+        if (check_winner()) {
+          setTimeout(() => {
+            alert(player_a ? "Player A (X) wins!" : "Player B (O) wins!");
+            reset_game();
+          }, 100);
+          return;
+        }
+
+        player_a = !player_a;
+      } else {
+        alert("That square is already taken!");
+      }
+    }
+
+    function check_winner() {
+      return (
+        (value[0] === value[1] && value[1] === value[2] && value[0] !== "") ||
+        (value[3] === value[4] && value[4] === value[5] && value[3] !== "") ||
+        (value[6] === value[7] && value[7] === value[8] && value[6] !== "") ||
+        (value[0] === value[3] && value[3] === value[6] && value[0] !== "") ||
+        (value[1] === value[4] && value[4] === value[7] && value[1] !== "") ||
+        (value[2] === value[5] && value[5] === value[8] && value[2] !== "") ||
+        (value[0] === value[4] && value[4] === value[8] && value[0] !== "") ||
+        (value[2] === value[4] && value[4] === value[6] && value[2] !== "")
+      );
+    }
+
+    function reset_game() {
+      value = ["", "", "", "", "", "", "", "", ""];
+      player_a = true;
+      for (let i = 1; i <= 9; i++) {
+        document.getElementById("child_" + i).innerText = "";
+      }
+    }
+  </script>
 </body>
 </html>
