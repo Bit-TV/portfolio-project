@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Concept Art Series - Project Details</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Gallery styles */
+    .gallery-box {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    #gallery-img {
+      width: 300px;
+      border-radius: 1rem;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .fade {
+      opacity: 0;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,7 +43,7 @@
   <main class="section">
     <h1>Concept Art Series</h1>
 
-    <p></p>
+    <p>A collection of surrealist digital illustrations and character studies designed in Procreate and Photoshop.</p>
 
     <h2>Video Showcase</h2>
     <div class="video-wrapper" style="margin: 1rem 0;">
@@ -30,12 +51,40 @@
       <p><a href="https://vimeo.com/922737947">ART TO LIFE</a> from <a href="https://vimeo.com/user216650576">Franklin Verdugo Jr</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
     </div>
 
-    
+    <!-- Auto-cycling image gallery -->
+    <h2>Gallery</h2>
+    <div class="project gallery-box">
+      <img id="gallery-img" src="mask.jpg" alt="Video Mask" class="visible" />
+    </div>
+
     <a href="index.html#projects" class="button" style="display: block; text-align: center; margin-top: 2rem;">Back to Projects</a>
   </main>
 
   <footer>
     <p>&copy; 2025 Briyana Verdugo. All rights reserved.</p>
   </footer>
+
+  <script>
+    const images = ["mask.jpg", "head.png", "Bill.png"];
+    let current = 0;
+    const galleryImg = document.getElementById("gallery-img");
+
+    function cycleImages() {
+      // fade out
+      galleryImg.classList.remove("visible");
+      galleryImg.classList.add("fade");
+
+      setTimeout(() => {
+        current = (current + 1) % images.length;
+        galleryImg.src = images[current];
+
+        // fade in
+        galleryImg.classList.remove("fade");
+        galleryImg.classList.add("visible");
+      }, 400);
+    }
+
+    setInterval(cycleImages, 3000); // change every 3 seconds
+  </script>
 </body>
 </html>
